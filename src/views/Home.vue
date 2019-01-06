@@ -50,8 +50,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+import BScroll from "better-scroll";
 
 export default {
   data() {
@@ -88,23 +87,6 @@ export default {
           this.cates = res.data.data.cates;
         }
       });
-  },
-  mounted() {
-    var banner = document.querySelector(".van-swipe");
-    var search = document.querySelector(".searchBox");
-    window.onscroll = function() {
-      var bannerHeight = banner.offsetHeight;
-      var offsetTop =
-        document.scrollTop || document.body.scrollTop || document.documentElement.scrollTop;
-      var opacity = 0;
-      if (offsetTop < bannerHeight) {
-        opacity = offsetTop / bannerHeight;
-        search.style.backgroundColor = "rgba(255,255,255," + opacity + ")";
-      }
-    };
-  },
-  destroyed() {
-    window.onscroll = null;
   }
 };
 </script>
