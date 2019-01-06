@@ -12,7 +12,7 @@
             <span>{{item.name}}</span>
           </li>
         </ul>-->
-        <div class="subCate-item" @click="goList(item.id)" v-for="item in imgList" :key="item.id">
+        <div class="subCate-item" @click="goList(item.id, item.name)" v-for="item in imgList" :key="item.id">
           <img :src="item.img">
           <span>{{item.name}}</span>
         </div>
@@ -61,8 +61,8 @@ export default {
       });
   },
   methods: {
-    goList(id) {
-      this.$router.push({ path: "/goodsList", query: { id } });
+    goList(id, title) {
+      this.$router.push({ path: "/goodsList", query: { id, title } });
     },
     getSecondCategories(index, title) {
       const categoryId = this.category[index]["id"];

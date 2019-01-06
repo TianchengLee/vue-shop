@@ -12,6 +12,7 @@
   text-align: center;
   color: #2c3e50;
   overflow-x: hidden;
+  height: 100%;
 }
 .v-enter {
   transform: translateX(-100%);
@@ -33,5 +34,8 @@
 }
 .v-leave-active {
   position: absolute;
+}
+.van-nav-bar {
+  z-index: 999 !important;
 }
 </style>

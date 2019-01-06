@@ -1,6 +1,6 @@
 <template>
   <div class="goodsInfo">
-    <van-nav-bar :title="goodsInfo.name" left-text="返回" left-arrow @click-left="onClickLeft"/>
+    <van-nav-bar  fixed :title="goodsInfo.name" left-text="返回" left-arrow @click-left="onClickLeft"/>
     <div class="detail">
       <div class="img" @click="showImagePreview">
         <img :src="img" alt>
@@ -125,10 +125,9 @@ export default {
 
 <style lang="less">
 .goodsInfo {
+  padding-top: 45px;
   .detail {
-    padding-top: 10px;
     .img {
-      // background-color:#ccc;
       img {
         width: 100%;
         height: 300px;
@@ -139,7 +138,6 @@ export default {
       font-size: 20px;
       font-weight: bold;
       text-align: left;
-      height: 50px;
       div {
         margin-top: 5px;
         span {

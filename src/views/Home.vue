@@ -31,7 +31,7 @@
     <!-- 商品导航 -->
     <ul class="nav">
       <li v-for="item in cates" :key="item.id">
-        <router-link :to="'/goodsList?id=' + item.id">
+        <router-link :to="'/goodsList?id=' + item.id + '&title=' + item.name">
           <img :src="item.img" alt>
           <p>{{item.name}}</p>
         </router-link>
