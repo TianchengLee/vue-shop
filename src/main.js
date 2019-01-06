@@ -12,7 +12,7 @@ Vue.prototype.$http = axios;
 // axios 拦截器
 axios.interceptors.request.use(function (config) {
   let token = localStorage.getItem('token');
-  if(token){
+  if (token) {
     config.headers['Authorization'] = token;
   }
   return config;
@@ -20,7 +20,18 @@ axios.interceptors.request.use(function (config) {
   // Do something with request error
   return Promise.reject(error);
 });
-
+// 添加响应拦截器
+axios.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  if (error.response.status === 401) {
+    // console.log('未授权')
+    Toast.fail('未登录哦!请您先登录!');
+    return Promise.resolve(error.response)
+  }
+  // 对响应错误做点什么
+  return Promise.reject(error);
+});
 // 导入vant UI
 import Vant from 'vant';
 import 'vant/lib/index.css';

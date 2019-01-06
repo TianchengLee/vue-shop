@@ -24,8 +24,8 @@
        <!-- tabBar -->
     <van-tabbar v-model="active">
       <van-tabbar-item icon="wap-home" to="/">首页</van-tabbar-item>
-      <van-tabbar-item icon="pending-evaluate" to="/category">分类</van-tabbar-item>
-      <van-tabbar-item icon="search" dot to="/news">新闻</van-tabbar-item>
+      <van-tabbar-item icon="label-o" to="/category">分类</van-tabbar-item>
+      <van-tabbar-item icon="search" to="/news">新闻</van-tabbar-item>
       <van-tabbar-item icon="shopping-cart" to="/shopcar">购物车</van-tabbar-item>
       <van-tabbar-item icon="contact" to="/me">我的</van-tabbar-item>
     </van-tabbar>

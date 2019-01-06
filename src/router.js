@@ -3,12 +3,12 @@ import Router from 'vue-router'
 
 import Home from './views/Home.vue'
 import Category from './views/Category.vue'
-import news from './views/news.vue'
+import news from './views/News.vue'
 import Shopcar from './views/Shopcar.vue'
 import Me from './views/Me.vue'
 
 // 新闻详情
-import newsInfo from './views/newsInfo.vue'
+import newsInfo from './views/NewsInfo.vue'
 // 商品分类
 import GoodsList from './views/GoodsList.vue'
 // 商品详情
