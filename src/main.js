@@ -41,7 +41,7 @@ Vue.use(Vant)
 
 import { Toast } from 'vant';
 Vue.use(Toast);
-
+Toast.setDefaultOptions({position: 'bottom'})
 new Vue({
   router,
   store,

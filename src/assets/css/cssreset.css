@@ -93,6 +93,14 @@ video {
   box-sizing: border-box;
 }
 
+a,
+a:hover,
+a:link,
+a:active,
+a:visited {
+  color: #2c3e50;
+}
+
 /* HTML5 display-role reset for older browsers */
 
 article,

@@ -31,7 +31,7 @@
     <!-- 商品导航 -->
     <ul class="nav">
       <li v-for="item in cates" :key="item.id">
-        <router-link :to="'/goodsList/' + item.id">
+        <router-link :to="'/goodsList?id=' + item.id">
           <img :src="item.img" alt>
           <p>{{item.name}}</p>
         </router-link>
@@ -95,13 +95,16 @@ export default {
     window.onscroll = function() {
       var bannerHeight = banner.offsetHeight;
       var offsetTop =
-        document.body.scrollTop || document.documentElement.scrollTop;
+        document.scrollTop || document.body.scrollTop || document.documentElement.scrollTop;
       var opacity = 0;
       if (offsetTop < bannerHeight) {
         opacity = offsetTop / bannerHeight;
         search.style.backgroundColor = "rgba(255,255,255," + opacity + ")";
       }
     };
+  },
+  destroyed() {
+    window.onscroll = null;
   }
 };
 </script>

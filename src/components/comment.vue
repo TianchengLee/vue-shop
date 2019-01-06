@@ -15,21 +15,23 @@
 
     <van-button type="primary" size="large" @click="addComment">发表评论</van-button>
 
-    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="getMore">
-      <van-cell v-for="item in comments" :key="item.id" :title="item.comment"/>
-    </van-list>
-    <!-- 
-    <div class="cmt-list">
-      <div class="cmt-item" v-for="(item, i) in comments" :key="i">
-        <div class="cmt-title">
-          <span v-text="item.nickname"></span>
-          <span v-text="item.ctime"></span>
+    <van-list
+      class="cmt-list"
+      v-model="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="getComments"
+    >
+      <transition-group appear>
+        <div class="cmt-item" v-for="item in comments" :key="item.id">
+          <div class="cmt-title">
+            <span v-text="item.nickname"></span>
+            <span v-text="item.ctime"></span>
+          </div>
+          <div class="cmt-body" v-text="item.comment"></div>
         </div>
-        <div class="cmt-body" v-text="item.comment"></div>
-      </div>
-    </div>
-
-    <van-button type="danger" size="large" @click="getMore">加载更多</van-button>-->
+      </transition-group>
+    </van-list>
   </div>
 </template>
 
@@ -44,14 +46,14 @@ export default {
       finished: false
     };
   },
-  created() {
-    this.getComments();
+  mounted() {
+    // console.log(this.$refs.vlist.check());
   },
   methods: {
     getComments() {
       let pageInfo = {
         page: this.pageIndex,
-        pageSize: 10
+        pageSize: 1
       };
       this.$http
         .get("/v1/news/getCommentList/" + this.id, { params: pageInfo })
@@ -64,11 +66,7 @@ export default {
             }
           }
         });
-    },
-    getMore() {
-      // 加载更多
       this.pageIndex++;
-      this.getComments();
     },
     addComment() {
       if (this.msg.trim().length === 0) {
@@ -79,11 +77,7 @@ export default {
         .post("/v1/news/postComment/" + this.id, { comment: this.msg.trim() })
         .then(res => {
           if (res.data.status == 200) {
-            var cmt = {
-              comment: this.msg.trim(),
-              news_id: this.id
-            };
-            this.comments.unshift(cmt);
+            this.comments.unshift(res.data.data);
             this.msg = "";
           }
         });
@@ -96,35 +90,25 @@ export default {
 <style lang="less" scoped>
 .cmt-container {
   padding: 5px;
-  // h3 {
-  //   height: 16px;
-  //   line-height: 16px;
-  //   font-size: 16px;
-  //   text-align: left;
-  //   margin: 10px 0;
-  // }
-  // textarea {
-  //   font-size: 14px;
-  //   height: 85px;
-  //   width:98%;
-  //   margin: 0;
-  // }
-
   .cmt-list {
-    margin: 5px 0;
+    margin: 10px 0;
     .cmt-item {
       font-size: 13px;
+      box-shadow: 0 0 6px #ccc;
+      border-radius: 5px;
+      margin: 10px 0;
+      padding: 6px;
       .cmt-title {
-        line-height: 30px;
+        line-height: 25px;
         text-align: left;
         display: flex;
         justify-content: space-between;
         padding-right: 5px;
+        font-size: 14px;
       }
       .cmt-body {
         line-height: 35px;
         text-align: left;
-        text-indent: 2em;
       }
     }
   }

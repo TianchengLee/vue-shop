@@ -7,8 +7,10 @@
         <span class="views">点击次数:{{newsInfo.views}}</span>
       </div>
     </div>
+
     <div class="body" v-html="newsInfo.content"></div>
-    <comment-box :id="id"></comment-box>
+
+    <comment :id="id"></comment>
   </div>
 </template>
 
@@ -34,7 +36,7 @@ export default {
     }
   },
   components: {
-    "comment-box": comment
+    comment
   }
 };
 </script>
@@ -60,6 +62,7 @@ export default {
   }
   .body {
     padding: 10px;
+    margin-top: 20px;
     font-size: 14px;
     border-bottom: 1px solid #ccc;
     line-height: 2em;

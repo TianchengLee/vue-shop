@@ -1,17 +1,21 @@
 <template>
   <div class="category">
     <!-- Tab 标签滑块 -->
-    <van-tabs sticky @click="onClick">
-      <van-tab v-for="(item,index) in category" :title="item.name" :key="index" class="tab">
+    <van-tabs sticky @click="getSecondCategories">
+      <van-tab v-for="(item,index) in category" :title="item.name" :key="index" class="tab subCate">
         <!-- <div class="subCate">
           <img src="../assets/images/bg.jpg" alt="" @click="goList(item.id)" v-for="(item,index) in imgList" :key="index">
         </div>-->
-        <ul class="subCate">
+        <!-- <ul class="subCate">
           <li @click="goList(item.id)" v-for="(item,index) in imgList" :key="index">
             <img :src="item.img">
             <span>{{item.name}}</span>
           </li>
-        </ul>
+        </ul>-->
+        <div class="subCate-item" @click="goList(item.id)" v-for="item in imgList" :key="item.id">
+          <img :src="item.img">
+          <span>{{item.name}}</span>
+        </div>
       </van-tab>
     </van-tabs>
 
@@ -39,26 +43,28 @@ export default {
     };
   },
   created() {
-    this.$http.get("/v1/goods/getGoodsCategories").then(res => {
-      if (res.data.status == 200) {
-        this.category = res.data.data;
+    this.$http
+      .get("/v1/goods/getGoodsCategories")
+      .then(res => {
+        if (res.data.status == 200) {
+          this.category = res.data.data;
 
-        this.$http
-          .get("/v1/goods/getGoodsSubCategories/" + this.category[0].id)
-          .then(res => {
-            if (res.data.status == 200) {
-              this.imgList = res.data.data;
-            }
-          });
-      }
-    });
+          return this.$http.get(
+            "/v1/goods/getGoodsSubCategories/" + this.category[0].id
+          );
+        }
+      })
+      .then(res => {
+        if (res.data.status == 200) {
+          this.imgList = res.data.data;
+        }
+      });
   },
   methods: {
-    onLoad() {},
     goList(id) {
       this.$router.push({ path: "/goodsList", query: { id } });
     },
-    onClick(index, title) {
+    getSecondCategories(index, title) {
       const categoryId = this.category[index]["id"];
       this.$http
         .get("/v1/goods/getGoodsSubCategories/" + categoryId)
@@ -77,23 +83,32 @@ export default {
   padding-bottom: 50px;
   .subCate {
     width: 100%;
-    li {
+    padding: 10px 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    .subCate-item {
       position: relative;
-      margin-bottom: 3px;
+      margin-bottom: 25px;
+      border: 1px solid #eaeaea;
+      box-shadow: 0 0 5px #eaeaea;
+      width: 160px;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
       img {
-        width: 100%;
-        height: 300px;
         display: block;
       }
       span {
-        position: absolute;
+        // position: absolute;
         width: 100%;
         height: 40px;
         line-height: 40px;
-        background: rgba(0, 0, 0, 0.5);
-        color: white;
-        left: 0;
-        bottom: 0;
+        // background: rgba(0, 0, 0, 0.5);
+        // color: white;
+        // left: 0;
+        // bottom: 0;
       }
     }
   }
