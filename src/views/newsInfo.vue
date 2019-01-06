@@ -1,11 +1,10 @@
 <template>
   <div class="newsInfo">
-    <van-nav-bar title="新闻" left-text="返回" left-arrow @click-left="onClickLeft"/>
+    <van-nav-bar fixed :title="newsInfo.title" left-text="返回" left-arrow @click-left="onClickLeft"/>
     <div class="header">
-      <div class="title">{{newsInfo.title}}</div>
       <div class="subtitle">
         <span class="ctime">发表时间:{{newsInfo.ctime}}</span>
-        <span class="views">评论次数:{{newsInfo.views}}</span>
+        <span class="views">点击次数:{{newsInfo.views}}</span>
       </div>
     </div>
     <div class="body" v-html="newsInfo.content"></div>
@@ -63,6 +62,8 @@ export default {
     padding: 10px;
     font-size: 14px;
     border-bottom: 1px solid #ccc;
+    line-height: 2em;
+    text-align: left;
     img {
       width: 100%;
     }

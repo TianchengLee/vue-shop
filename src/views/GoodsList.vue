@@ -5,10 +5,12 @@
     <div class="items">
       <div class="item" @click="goInfo(item.id)" v-for="(item,index) in goodsList" :key="index">
         <img :src="item.cover_img" alt>
-        <p>商品名称:
+        <p>
+          商品名称:
           <span>{{item.name}}</span>
         </p>
-        <p>市场价:
+        <p>
+          市场价:
           <span>{{item.sale_price}}</span>
         </p>
       </div>
@@ -24,11 +26,13 @@ export default {
     };
   },
   created() {
-    const id = this.$route.params.id;
+    const id = this.$route.query.id;
+    const keys = this.$route.query.keys || "";
     this.$http
       .get("/v1/goods/getGoodsList", {
         params: {
           cateId: id,
+          keys,
           page: 1,
           pageSize: 10
         }

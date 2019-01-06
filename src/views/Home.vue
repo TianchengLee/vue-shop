@@ -1,22 +1,23 @@
 <template>
   <div class="home">
     <!-- 头部搜索 -->
-    <van-row gutter="20" class="searchBox" style="width:100%;">
-      <van-col span="4" class="register">
-        <a href="#">登录</a>
+    <van-row gutter="0" class="searchBox" style="width:100%;">
+      <van-col span="3" class="category">
+        <router-link to="/category">
+          <van-icon name="label-o"/>
+        </router-link>
       </van-col>
       <van-col span="18" class="searchForm">
-        <form action="/">
-          <van-search
-            v-model="value"
-            style="background:white;height:35px;border-radius:22px;border:1px solid #ccc;"
-            placeholder="大家在搜索：衣服"
-            @click.stop
-          />
-        </form>
+        <van-search
+          v-model="searchKeys"
+          style="background:white;height:32px;border-radius:22px;border:1px solid #ccc;"
+          placeholder="大家在搜索：衣服"
+          @click.stop
+          @keydown.enter="getGoodsListByKeys(searchKeys)"
+        />
       </van-col>
-      <van-col span="2" class="classfic">
-        <van-icon name="qr"/>
+      <van-col span="3" class="login">
+        <router-link to="/me/login">登录</router-link>
       </van-col>
     </van-row>
 
@@ -55,7 +56,7 @@
 export default {
   data() {
     return {
-      value: "",
+      searchKeys: "",
       active: 0,
       shopcarCount: this.$store.getters.getCount,
       bannerImages: [],
@@ -63,8 +64,14 @@ export default {
     };
   },
   name: "home",
+  methods: {
+    getGoodsListByKeys(keys) {
+      if (!keys.trim()) return this.$toast("请输入搜索关键词!");
+      this.$router.push({ path: "/goodsList", query: { keys } });
+    }
+  },
   created() {
-    this.$http.get("v1/home/getBanners").then(res => {
+    this.$http.get("/v1/home/getBanners").then(res => {
       // console.log(res);
       if (res.data.status == 200) {
         this.bannerImages = res.data.data;
@@ -81,26 +88,46 @@ export default {
           this.cates = res.data.data.cates;
         }
       });
+  },
+  mounted() {
+    var banner = document.querySelector(".van-swipe");
+    var search = document.querySelector(".searchBox");
+    window.onscroll = function() {
+      var bannerHeight = banner.offsetHeight;
+      var offsetTop =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      var opacity = 0;
+      if (offsetTop < bannerHeight) {
+        opacity = offsetTop / bannerHeight;
+        search.style.backgroundColor = "rgba(255,255,255," + opacity + ")";
+      }
+    };
   }
 };
 </script>
 <style lang="less" scoped>
 // @import '../assets/css/home.less';
 .home {
+  padding-bottom: 50px;
   .searchBox {
-    margin: 5px auto;
-
-    .register {
+    padding-top: 5px;
+    position: fixed;
+    z-index: 999;
+    .login,
+    .category {
       text-align: center;
       line-height: 35px;
-      padding-left: 20px !important;
+    }
+    .category {
+      a {
+        display: block;
+        padding-top: 3px;
+      }
+      .van-icon-label-o {
+        font-size: 18px;
+      }
     }
     .searchForm {
-      padding: 0 !important;
-    }
-    .classfic {
-      text-align: center;
-      line-height: 35px;
     }
   }
   .nav {

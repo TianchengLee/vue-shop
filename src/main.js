@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import './assets/css/cssreset.css'
+
 // 导入axios
 import axios from 'axios'
 axios.defaults.baseURL = 'http://litc.pro:9999';
