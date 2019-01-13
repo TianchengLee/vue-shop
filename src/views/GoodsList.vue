@@ -158,7 +158,7 @@ export default {
       this.getGoodsList();
     },
     loadMore() {
-      if (this.finished) return;
+      if (this.finished || this.refereshLoading) return;
       this.page++;
       this.loadMoreLoading = true;
       this.getGoodsList();
