@@ -15,7 +15,6 @@ import GoodsList from './views/GoodsList.vue'
 import GoodsInfo from './views/GoodsInfo.vue'
 
 // 个人中心
-import myorder from './components/me/myorder.vue'
 import addressList from './components/me/addressList.vue'
 import pwdReset from './components/me/pwdReset.vue'
 import list from './components/me/list.vue'
@@ -99,13 +98,6 @@ export default new Router({
         {
           path: 'register',
           component: register,
-          beforeEnter: (to, from, next) => {
-            checkLogin(next)
-          }
-        },
-        {
-          path:'myorder',
-          component: myorder,
           beforeEnter: (to, from, next) => {
             checkLogin(next)
           }
