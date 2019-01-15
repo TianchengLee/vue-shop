@@ -139,6 +139,7 @@ export default {
           if (res.data.status == 200) {
             this.goodsList = this.goodsList.concat(res.data.data.goods);
             if (this.refereshLoading) {
+              this.goodsList = res.data.data.goods;
               this.refereshLoading = false;
             }
             if (this.loadMoreLoading) {
@@ -154,7 +155,7 @@ export default {
       this.page = 1;
       this.refereshLoading = true;
       this.finished = false;
-      this.goodsList = [];
+      // this.goodsList = [];
       this.getGoodsList();
     },
     loadMore() {
