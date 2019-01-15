@@ -1,8 +1,12 @@
 <template>
   <div>
+    <div class="avatar-container">
+      <img src="@/assets/images/avatar.png" alt="">
+    </div>
     <van-cell-group>
-      <van-cell :value="'用户名称:' + (userInfo.username || '')"/>
-      <van-cell :value="'用户手机:' + (userInfo.mobile || '')"/>
+      <van-cell :value="'用户名:' + (userInfo.username || '')"/>
+      <van-cell :value="'昵称:' + (userInfo.nickname || '')"/>
+      <van-cell :value="'手机:' + (userInfo.mobile || '')"/>
       <van-cell value="修改手机" @click="account"/>
       <van-cell value="密码重置" @click="redirect('PwdReset')"/>
       <van-cell value="我的地址" @click="redirect('AddressList')"/>
@@ -47,6 +51,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.avatar-container {
+  padding: 30px 0;
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
 .logout {
   width: 90%;
   margin-top: 50px;
